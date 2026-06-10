@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>The Drowned Ledger — toil for the deep</title>
+<meta name="description" content="An eldritch-corporate clicker. Choose your city. File your tribute. The Ledger hungers.">
+<meta name="theme-color" content="#060709">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ledger">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Metamorphous&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ====== HEADER ====== -->
+  <header id="topbar">
+    <button id="cityBtn" class="city-btn" title="Change branch city">
+      <span class="city-glyph">◍</span>
+      <span id="cityName">NO BRANCH</span>
+    </button>
+    <div class="counter-block">
+      <div id="tribute" class="tribute-num">0</div>
+      <div class="tribute-sub">
+        <span class="lbl">TRIBUTE</span>
+        <span id="cps" class="cps">0/s</span>
+      </div>
+    </div>
+    <button id="soundBtn" class="icon-btn" title="Sound">♪</button>
+  </header>
+
+  <!-- ====== WIRE TICKER ====== -->
+  <div id="ticker" aria-hidden="true">
+    <span class="tick-tag">THE WIRE</span>
+    <span id="tickerLine">market sentiment: INEVITABLE</span>
+  </div>
+
+  <!-- ====== GLOBE ====== -->
+  <section id="globeWrap">
+    <canvas id="globe"></canvas>
+    <div id="sigilLayer"></div>
+    <div id="frenzyBanner" class="hidden">VEIL HOUR <b>×7</b> <span id="frenzyTimer"></span></div>
+  </section>
+
+  <!-- ====== PANELS ====== -->
+  <main id="panels">
+
+    <section id="panel-work" class="panel active">
+      <div id="floatLayer"></div>
+      <button id="toil" aria-label="Toil for the Ledger">
+        <span class="toil-ring r1"></span>
+        <span class="toil-ring r2"></span>
+        <span class="toil-core">
+          <svg class="toil-eye" viewBox="0 0 64 40" aria-hidden="true">
+            <path class="eye-lid" d="M4 20 Q32 -6 60 20 Q32 46 4 20 Z"/>
+            <circle class="eye-iris" cx="32" cy="20" r="9"/>
+            <ellipse class="eye-slit" cx="32" cy="20" rx="2.2" ry="7"/>
+          </svg>
+          <span class="toil-word">TOIL</span>
+        </span>
+      </button>
+      <div id="clickInfo">+<span id="clickPow">1</span> tribute per toil</div>
+      <div id="boostInfo" class="hidden"></div>
+    </section>
+
+    <section id="panel-rites" class="panel">
+      <h2 class="panel-title">RITES OF PRODUCTIVITY</h2>
+      <div id="shop"></div>
+    </section>
+
+    <section id="panel-ledger" class="panel">
+      <h2 class="panel-title">THE GLOBAL LEDGER</h2>
+      <p class="sim-note">⚠ simulated feed — live multiplayer arrives in phase&nbsp;2</p>
+      <ol id="board"></ol>
+    </section>
+
+    <section id="panel-alms" class="panel">
+      <h2 class="panel-title">OFFERINGS</h2>
+      <p class="sim-note">proof-of-concept storefront — nothing here costs real money (yet)</p>
+
+      <div class="alms-card live">
+        <div class="alms-head"><span class="alms-name">RECEIVE A VISION</span><span class="alms-price">FREE · <span id="visionLeft">3</span>/3 today</span></div>
+        <p>Gaze into the deep for 8 seconds. Return blessed: <b>×2 tribute for 10 minutes</b>. <i>(rewarded-ad slot in production)</i></p>
+        <button id="visionBtn" class="alms-buy">GAZE</button>
+      </div>
+
+      <div class="alms-card">
+        <div class="alms-head"><span class="alms-name">FISCAL QUARTER PASS</span><span class="alms-price">$3.99</span></div>
+        <p>13 weeks of cosmetic rewards: globe skins, toil sigils, drowned titles. No power sold.</p>
+        <button class="alms-buy" disabled>SOON</button>
+      </div>
+
+      <div class="alms-card">
+        <div class="alms-head"><span class="alms-name">SIGIL WARDROBE</span><span class="alms-price">$0.99+</span></div>
+        <p>Cosmetic click-sigils &amp; city banners. Flaunt your devotion to other branches.</p>
+        <button class="alms-buy" disabled>SOON</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== TAB BAR ====== -->
+  <nav id="tabbar">
+    <button class="tab active" data-panel="panel-work"><span class="tab-glyph">◉</span>TOIL</button>
+    <button class="tab" data-panel="panel-rites"><span class="tab-glyph">⚚</span>RITES</button>
+    <button class="tab" data-panel="panel-ledger"><span class="tab-glyph">≡</span>LEDGER</button>
+    <button class="tab" data-panel="panel-alms"><span class="tab-glyph">✦</span>ALMS</button>
+  </nav>
+
+  <!-- ====== CITY PICKER ====== -->
+  <div id="cityModal" class="modal hidden">
+    <div class="modal-box">
+      <h2 class="panel-title">WHERE DO YOU SLEEP?</h2>
+      <p class="modal-sub">Your toil feeds your city's branch. Choose truthfully. <em>It knows.</em></p>
+      <input id="citySearch" type="search" placeholder="search cities…" autocomplete="off">
+      <ul id="cityList"></ul>
+    </div>
+  </div>
+
+  <!-- ====== VISION OVERLAY ====== -->
+  <div id="visionOverlay" class="hidden">
+    <div class="vision-eye"></div>
+    <div id="visionCount">8</div>
+    <div class="vision-text">DO NOT LOOK AWAY</div>
+  </div>
+
+  <div id="toasts"></div>
+</div>
+
+<noscript><p style="padding:2rem;font-family:monospace">The Ledger requires JavaScript. The Ledger requires many things.</p></noscript>
+<script src="./app.js"></script>
+</body>
+</html>
