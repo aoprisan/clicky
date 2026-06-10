@@ -167,7 +167,7 @@ const globe = (() => {
     W = rect.width; H = rect.height;
     canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    R = Math.min(W, H) * 0.42; CX = W / 2; CY = H / 2;
+    R = Math.min(W, H) * 0.46; CX = W / 2; CY = H / 2;
   }
 
   // lat/lon (deg) -> rotated unit vector

@@ -57,7 +57,7 @@ body::after {
   position: relative; z-index: 1;
   height: 100dvh;
   display: grid;
-  grid-template-rows: auto auto minmax(180px, 34dvh) 1fr auto;
+  grid-template-rows: auto auto minmax(220px, 42dvh) 1fr auto;
   padding-top: var(--sat);
   max-width: 560px;
   margin: 0 auto;
